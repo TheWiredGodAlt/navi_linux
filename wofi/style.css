@@ -1,0 +1,86 @@
+* {
+    font-family: Maple Mono;
+    background: transparent;
+    color: #d8cab8;
+}
+
+#window {
+    color: #d8cab8;
+    border-color: rgba(216, 203, 184, 0.18);
+    border-style: solid;
+    border-width: 1px;
+
+    /* Transparent background for Hyprland blur. */
+    background-color: rgba(34, 31, 43, 0.86);
+    background-image: none;
+
+    border-radius: 2px;
+
+    box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.55),
+        0 8px 24px rgba(0, 0, 0, 0.35),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+#scroll {
+    border-top-style: solid;
+    border-width: 1px;
+    border-color: rgba(216, 203, 184, 0.18);
+}
+
+#inner-box {
+    padding-top: 12px;
+}
+
+#entry {
+    border-style: none;
+    border-color: rgba(216, 203, 184, 0.18);
+    color: #d8cab8;
+    padding: 6px;
+    margin-bottom: 10px;
+    margin-left: 12px;
+    margin-right: 12px;
+
+    border-radius: 12px;
+}
+
+#entry:selected {
+    background: rgba(39, 35, 43, 0.90);
+    color: #d8cab8;
+    font-weight: bold;
+    outline: none;
+
+    box-shadow: inset 0 0 0 1px rgba(216, 203, 184, 0.08);
+}
+
+#input {
+    background-color: rgba(20, 18, 22, 0.60);
+    color: #d8cab8;
+    border-color: rgba(216, 203, 184, 0.18);
+
+    border-style: none;
+    border-bottom-style: solid;
+    border-width: 1px;
+
+    font-style: normal;
+
+    border-radius: 15px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+
+    padding: 12px;
+    margin: 8px;
+}
+
+#input:focus {
+    background: rgba(39, 35, 43, 0.80);
+    background-color: rgba(39, 35, 43, 0.80);
+    border-color: rgba(172, 130, 233, 0.80);
+    font-style: italic;
+}
+
+#img {
+    padding: 4px;
+    margin-right: 6px;
+}
+

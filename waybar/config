@@ -1,0 +1,98 @@
+{
+    "height": 40,
+    "margin-top": 0,
+    "margin-left": -4,
+    "margin-right": -4,
+    "margin-bottom": 8,
+    "position": "top",
+    "layer": "top",
+    "modules-left": ["custom/gentoo", "hyprland/window"],
+    "modules-center": ["hyprland/workspaces"],
+    "modules-right": [
+        "backlight",
+        "pulseaudio",
+        "custom/applauncher",
+        "network",
+        "battery",
+        "clock",
+        "sway/language",
+        "tray"
+    ],
+
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": false,
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "active": "󱓻",
+            "default": "󱓼",
+            "persistent": "󱓼"
+        },
+        "persistent-workspaces": {
+            "*": [1, 2, 3, 4, 5]
+        }
+    },
+
+    "hyprland/window": {
+        "rewrite": {
+            "": "Finder"
+        }
+    },
+
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "reverse-scrolling": true
+    },
+
+    "custom/gentoo": {
+        "format": "󰣇",
+        "tooltip-format": "Am I autistic? Yes!"
+    },
+
+    "network": {
+        "format-ethernet": "󰍹",
+        "format-wifi": "󰖩 ",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "tooltip-format-wifi": "Connected to {essid} through {ifname} ({signalStrength}%)"
+    },
+
+    "sway/language": {
+        "format": "󰣩 {}"
+    },
+
+    "clock": {
+        "interval": 5,
+        "format": "{:%H:%M }",
+        "tooltip": true,
+        "tooltip-format": "{:%a %m-%d-%Y}"
+    },
+
+    "pulseaudio": {
+        "format-icons": ["󰖀", "󰕾"],
+        "format": "{icon} {volume}%",
+        "format-muted": "󰖁",
+        "reverse-scrolling": true
+    },
+
+    "battery": {
+        "interval": 10,
+        "format-charging": "󰂄 {capacity}%",
+        "format": "{icon} {capacity}%",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁿", "󰂀", "󰂂", "󰁹"]
+    },
+
+    "custom/applauncher": {
+        "format": "󰀘",
+        "on-click": "pgrep wofi >/dev/null 2>&1 && killall wofi || wofi --show drun",
+        "tooltip": false
+    },
+
+    "tray": {
+        "spacing": 10,
+        "tooltip": false
+    }
+}
+
+
