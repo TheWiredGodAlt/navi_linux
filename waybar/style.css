@@ -1,88 +1,143 @@
-@import "../assets.hyprlainbak/palette/palette.css";
+/* @import "$HOME/.config/colors/colors.css" */
+@import "../colors/colors.css";
 
 * {
-	font-family: "AdwaitaMono Nerd Font";
-	font-size: 16px;
-	font-weight: bold;
-	color: @highprimary;
+font-family: "JetBrainsMono Nerd Font";
+font-size: 13px;
+font-weight: bold;
+background-color: transparent;
+border-radius: 5px;
+min-height: 30px;
 }
 
+window,
+tooltip {
+background-color: @background;
+}
 window#waybar {
-	background-color: @backprimary;
-	border: solid @foreprimary;
-    border-radius: 10;
-	border-width: 2px 2px 2px 2px;
-	transition-property: background-color;
-	transition-duration: 0.5s;
+  /* dark acrylic tint, like Win11 dark mode.
+     alpha 0.55–0.75 is the sweet spot:
+     lower = more see-through, higher = more frosted */
+  background: rgba(17, 17, 27, 0.65);
+
+  border-radius: 0px;
+  margin: 6px 8px 0 8px;      /* floating-bar look */
+  border: 1px solid rgba(255, 255, 255, 0.08); /* subtle acrylic edge */
+  /* do NOT add: opacity: ...;  <-- breaks the blur */
 }
 
-button,
-button:hover,
-#workspaces #workspaces button,
+
+#workspaces {
+margin: 0px 0;
+}
+
+#workspaces button {
+color: @foreground;
+border: none;
+padding: 0 8px;
+}
+
 #workspaces button:hover {
-	color: @highprimary;
-	padding: 0px 2px 0px 2px;
-	margin: 0px;
-	border: none;
-	background: inherit;
-	background-color: transparent;
-	box-shadow: inset 0px 0px 0px 0px @foreprimary;
+color: @pink;
+transition: none;
+border-bottom: 1px solid @pink;
+padding: 0 8px;
 }
 
-tooltip,
-tooltip *,
-#tray menu {
-	color: @highprimary;
-	background-color: @backprimary;
-	text-shadow: none;
+#workspaces button.active {
+color: @pink;
+border: 2px solid @pink;
+padding: 0 8px;
+margin: 0 0px;
 }
 
-#mode,
-#battery,
+#workspaces button.urgent {
+background-color: @red;
+padding: 0 8px;
+}
+
+#custom-power,
 #cpu,
 #memory,
-#disk,
-#backlight,
-#network,
-#wireplumber,
-#custom-media,
 #tray,
-#mode,
-#idle_inhibitor,
-#scratchpad,
-#power-profiles-daemon,
-#mpd {
-	padding: 0px 6px 0px 6px;
+#bluetooth,
+#network,
+#battery,
+#pulseaudio,
+#custom-applauncher,
+#clock {
+color: @foreground;
+margin: 1px 3px;
+padding: 0 10px;
 }
 
-
-#custom-power{
-	padding: 6px 6px 6px 6px;
-}
-#custom-applauncher{
-	padding: 6px 6px 6px 6px;
+#custom-stats-toggle,
+#group-stats{
+margin-right: -4px;
+padding: 0 10px;
 }
 
-#temperature {
-	padding: 0px 3px 0px 3px;
+#custom-power:hover,
+#custom-stats-toggle:hover,
+#cpu:hover,
+#memory:hover,
+#bluetooth:hover,
+#custom-applauncher:hover,
+#network:hover,
+#battery:hover,
+#pulseaudio:hover,
+#clock:hover {
+background-color: alpha(@select, 0.6);
 }
 
-#image {
-	padding: 0px 4px 2px 0px;
+/* ── Stats drawer styling ─────────────────────────────── */
+/* Toggle button gets a pill feel so it reads as "clickable" */
+#custom-stats-toggle {
+border-radius: 8px;
+padding: 0 8px;
+}
+
+/* Drawer children slide in; slightly tightened spacing */
+#cpu,
+#memory {
+border-radius: 8px;
+padding: 0 6px;
+}
+
+#memory.warning {
+color: @yellow;
+}
+
+#memory.critical {
+color: @red;
+}
+
+#bluetooth {
+color: @white;
+}
+
+#network {
+color: @green;
+}
+
+#battery {
+color: @purple;
 }
 
 #pulseaudio {
-	padding: 0px 10px 0px 0px;
+color: @white;
 }
 
 #clock {
-	padding: 0px 3px 0px 0px;
+margin-right: 10px;
+color: @white;
 }
 
-#tray > .needs-attention,
-#pulseaudio.muted,
-#temperature.critical,
-#privacy-item.screenshare,
-#privacy-item.audio-out {
-	-gtk-icon-effect: highlight;
+#custom-power {
+margin-left: 10px;
+padding: 0px 10px 0 15px;
+}
+#custom-applauncher {
+margin-left: 7px;
+padding: 0px 10px 0 15px;
 }

@@ -1,28 +1,20 @@
 {
-    "height": 40,
-    "margin-top": 0,
-    "margin-left": -4,
-    "margin-right": -4,
-    "margin-bottom": 8,
-    "position": "top",
-    "layer": "top",
-    "modules-left": ["custom/gentoo", "hyprland/window"],
-    "modules-center": ["hyprland/workspaces"],
-    "modules-right": [
-        "backlight",
-        "pulseaudio",
-        "custom/applauncher",
-        "network",
-        "battery",
-        "clock",
-        "sway/language",
-        "tray"
-    ],
+    "modules-left": ["custom/power", "hyprland/workspaces"],
+    // "modules-center": [],
+    "modules-right":["group/stats", "custom/applauncher", "battery", "pulseaudio", "clock"],
+
+    "custom/power": {
+        "format" : "⭘ ",
+        "tooltip": false,
+        "on-click": "poweroff"
+    },
 
     "hyprland/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": false,
-        "tooltip": false,
+        "disable-scroll": false,
+        "all-outputs": true,
+        "tooltip": true,
+        // Explicit click-to-switch — this fixes clicking a workspace icon doing nothing
+         "on-click": "activate",
         "format": "{icon}",
         "format-icons": {
             "active": "󱓻",
@@ -34,65 +26,110 @@
         }
     },
 
-    "hyprland/window": {
-        "rewrite": {
-            "": "Finder"
-        }
+    // ── Hidden system-monitor drawer ─────────────────────────
+    // First module is the always-visible toggle button.
+    // Click it → the drawer slides open revealing CPU + RAM.
+    "group/stats": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 300,
+            "children-class": "stats-child",
+            "transition-left-to-right": true
+        },
+        "modules": ["custom/stats-toggle", "cpu", "memory","bluetooth", "network","tray"]
     },
 
-    "backlight": {
-        "format": "{icon} {percent}%",
-        "format-icons": ["󰃞", "󰃟", "󰃠"],
-        "reverse-scrolling": true
+    "custom/stats-toggle": {
+        "format": "󰓅",
+        "tooltip": false
     },
 
-    "custom/gentoo": {
-        "format": "󰣇",
-        "tooltip-format": "Am I autistic? Yes!"
+    "cpu": {
+        "interval": 2,
+        "format": "󰻠 {usage}%",
+        "on-click": "kitty -e htop"
+    },
+
+    "memory": {
+        "interval": 2,
+        "format": "󰍛 {percentage}%",
+        "tooltip-format": "{used:0.1f}GiB / {total:0.1f}GiB",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        },
+        "on-click": "kitty -e htop"
+    },
+
+    "tray": {
+        "icon-size": 20,
+        "spacing": 10,
+        "cursor": true
+    },
+
+    "bluetooth": {
+        "format": " 󰂯 ",
+        "format-disabled": " 󰂲 ",
+        "format-connected": " 󰂱 ",
+        "on-click": "blueman-manager"
     },
 
     "network": {
-        "format-ethernet": "󰍹",
-        "format-wifi": "󰖩 ",
-        "tooltip-format": "{ifname} via {gwaddr}",
-        "tooltip-format-wifi": "Connected to {essid} through {ifname} ({signalStrength}%)"
-    },
-
-    "sway/language": {
-        "format": "󰣩 {}"
-    },
-
-    "clock": {
-        "interval": 5,
-        "format": "{:%H:%M }",
+        "format-wifi": " ",
+        "format-ethernet": " ",
+        "format-linked": "  Linked (No IP)",
+        "format-disconnected": "  Disconnected",
         "tooltip": true,
-        "tooltip-format": "{:%a %m-%d-%Y}"
-    },
-
-    "pulseaudio": {
-        "format-icons": ["󰖀", "󰕾"],
-        "format": "{icon} {volume}%",
-        "format-muted": "󰖁",
-        "reverse-scrolling": true
+        "tooltip-format": "{essid}"
     },
 
     "battery": {
-        "interval": 10,
-        "format-charging": "󰂄 {capacity}%",
+        "states": {
+            "good": 85,
+            "warning": 30,
+            "critical": 15
+        },
         "format": "{icon} {capacity}%",
-        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁿", "󰂀", "󰂂", "󰁹"]
+        "format-full": "{icon} {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-alt": "{icon} {capacity}%",
+        "format-icons": [" ", " ", " ", " ", " "],
+        "tooltip-format": "{time}",
+        "cursor": false
     },
 
-    "custom/applauncher": {
-        "format": "󰀘",
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "  {volume}%",
+        "format-bluetooth": " {volume}%",
+        "format-bluetooth-muted": "  {volume}%",
+        "format-icons": {
+            "headphone": " ",
+            "headset": " ",
+            "default": [" "]
+        },
+        "tooltip": true,
+        "on-click": "pavucontrol"
+    },
+        "custom/applauncher": {
+        "format": "",
         "on-click": "pgrep wofi >/dev/null 2>&1 && killall wofi || wofi --show drun",
         "tooltip": false
     },
 
-    "tray": {
-        "spacing": 10,
-        "tooltip": false
+    "clock": {
+        "format": "{:%H:%M  %a/%d/%m}",
+        "tooltip-format": "<span size='15000'><tt>{calendar}</tt></span>",
+        "calendar": {
+            "mode": "month",
+            "format": {
+                "months": "<span color='#F5C2E7'><b>{}</b></span>",
+                "weekdays": "<span color='#89B4FA'><b>{}</b></span>",
+                "days": "<span color='#CDD6F4'><b>{}</b></span>",
+                "today": "<span color='#F9E2AF'><b>{}</b></span>"
+            }
+        },
+        "on-click": "swaync-client -t -sw"
     }
 }
-
-
